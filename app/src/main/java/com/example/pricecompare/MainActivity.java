@@ -1,21 +1,14 @@
 package com.example.pricecompare;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.pricecompare.ui.SearchActivity;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 

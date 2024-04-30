@@ -13,19 +13,8 @@
         android:theme="@style/Theme.PriceCompare"
         tools:targetApi="31">
         <activity
-            android:name=".ui.SearchActivity"
+            android:name=".SearchActivity"
             android:exported="false" />
-        <activity
-            android:name=".SearchingActivity"
-            android:exported="true"
-            android:label="@string/title_activity_searching"
-            android:theme="@style/Theme.PriceCompare.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
