@@ -65,6 +65,13 @@
                 android:layout_height="wrap_content"
                 android:text="Headphone"
                 android:textColor="@color/black"/>
+
+            <RadioButton
+                android:id="@+id/radioLaptop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Laptop"
+                android:textColor="@color/black"/>
         </RadioGroup>
 
         <Button
@@ -80,9 +87,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        layout="@layout/exit_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,22 +14,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppMain {
+public class MainActivity extends AppCompatActivity {
 
      RadioButton radioButton;
-
-
-
-
-    public MainActivity(){
-         setLayout(R.layout.activity_main);
-
-     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -47,7 +39,6 @@ public class MainActivity extends AppMain {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("SelectedCheckbox", sendText);
                 startActivity(intent);
-                finish();
             }
         });
 
