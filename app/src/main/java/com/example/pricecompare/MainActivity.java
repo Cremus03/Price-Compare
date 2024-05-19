@@ -15,8 +15,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-     RadioButton radioButton;
+    RadioButton radioButton;
+    Button searchBtn;
+    String produs;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +28,19 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                 radioButton= findViewById(checkedId);
+                radioButton= findViewById(checkedId);
                 Toast.makeText(getApplicationContext(),"Selected " + radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        Button searchBtn = findViewById(R.id.buttonSearch);
+        searchBtn = findViewById(R.id.buttonSearch);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sendText = radioButton.getText().toString();
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.putExtra("SelectedCheckbox", sendText);
+                produs = radioButton.getText().toString();
+                intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("SelectedCheckbox", produs);
                 startActivity(intent);
             }
         });
-
-
     }
-
 }

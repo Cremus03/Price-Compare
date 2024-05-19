@@ -12,46 +12,47 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SearchActivity extends AppCompatActivity {
     TextView textView;
     ListView listView;
+    ImageView backImg;
     ArrayAdapter<String> arrayAdapter;
     String[] newList, phoneModelList = {"Apple", "Samsung", "Huawei", "Xiaomi", "Oppo","Motorola","Nokia","Realme","Ulefone","Poco"},
             tabletModelList = {"Apple", "Samsung","Lenovo","Microsoft","Blackview", "Huawei", "Xiaomi"},
             watchModelList = {"Apple", "Samsung", "Huawei", "Garnite"},
             headPhoneModelList = {"Apple", "Samsung", "Huawei", "Xiaomi"},
             laptopModelList = {"Apple", "Samsung", "Huawei", "Lenovo", "Microsoft"};
-
     SearchView searchView;
+    String produs;
+    static String marca;
+    Intent intent;
 
-    String marca, model, memorieRom, memorieRam, culoare, pret;
-    private static final String Json_URL = "http://www.emag.ro";
-
-
+//    private static final String Json_URL = "http://www.emag.ro";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        ImageView backImg = findViewById(R.id.imageDelete);
+        backImg = findViewById(R.id.imageDelete);
         backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                intent = new Intent(SearchActivity.this, MainActivity.class);
                 System.exit(0);
                 startActivity(intent);
             }
         });
-
         textView = findViewById(R.id.textRadioBtn);
-        Intent intent = getIntent();
-        String value = intent.getStringExtra("SelectedCheckbox");
-        textView.setText("Search for " + value);
+        intent = getIntent();
+        produs = intent.getStringExtra("SelectedCheckbox");
+        textView.setText("Search for " + produs);
         listView = findViewById(R.id.listViewItems);
-        switch (value) {
+        switch (produs) {
             case "Phone":
                 newList = phoneModelList;
                 break;
@@ -73,38 +74,47 @@ public class SearchActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         searchView.setQueryHint("Insert model here");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-        public boolean onQueryTextSubmit(String query) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            arrayAdapter.getFilter().filter(newText);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String sendText = (String) listView.getItemAtPosition(position);
-                    Intent intent = new Intent(SearchActivity.this, ShowItemActivity.class);
-                    intent.putExtra("SelectedListItem", sendText);
-                    startActivity(intent);
-                }
-            });
-            return false;
-        }
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                arrayAdapter.getFilter().filter(newText);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        marca = (String) listView.getItemAtPosition(position);
+                        intent = new Intent(SearchActivity.this, ShowItemActivity.class);
+                        intent.putExtra("SelectedListItem", marca);
+                        startActivity(intent);
+                    }
+                });
+                return false;
+            }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String sendText = (String) listView.getItemAtPosition(position);
-                Intent intent = new Intent(SearchActivity.this, ShowItemActivity.class);
-                intent.putExtra("SelectedItem", value);
-                intent.putExtra("SelectedListModel", sendText);
+                marca = (String) listView.getItemAtPosition(position);
+                intent = new Intent(SearchActivity.this, ShowItemActivity.class);
+                intent.putExtra("SelectedItem", produs);
+                intent.putExtra("SelectedListModel", marca);
                 startActivity(intent);
             }
         });
 
+    }
+
+    public static URL buildURL ( String nume){
+        URL urlFinal = null;
+        try{
+            urlFinal = new URL("http://www.emag.ro/telefoane-mobile/brand/"+marca+"/c?ref=ceva");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        return urlFinal;
     }
 }
 
